@@ -1,11 +1,11 @@
-const notesModel = require('../models/notesModel')
+const noteModel = require('../models/noteModel')
 
 const getAllNotes = async (req, res) => {
     try{
-        const notes = await notesModel.find(
+        const notes = await noteModel.find(
             {userid: req.body.userid}
             );
-            console.log(res.body)
+            //console.log(res.body)
             res.status(200).json(notes)
     } catch(error){
         console.log(error)
@@ -14,7 +14,7 @@ const getAllNotes = async (req, res) => {
 }
 const addNotes = async (req, res) => {
     try{
-        const newNote = new notesModel(req.body)
+        const newNote = new noteModel(req.body)
         await newNote.save()
         res.status(201).send('Note added')
     }
@@ -26,26 +26,26 @@ const addNotes = async (req, res) => {
 
 const editNotes = async (req, res ) =>{
     try {
-        await notesModel.findOneAndUpdate(
-            {_id:req.body.notesId}, 
+        await noteModel.findOneAndUpdate(
+            {_id:req.body.noteId}, 
             req.body.payload
             )
         res.status(200).send("edit success")
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).json(error)
     }
 }
 
 const deleteNotes = async (req, res ) =>{
     try {
-        await notesModel.findOneAndDelete(
-            {_id:req.body.notesId}, 
+        await noteModel.findOneAndDelete(
+            {_id:req.body.noteId}, 
             req.body.payload
             )
         res.status(200).send("delete success")
     } catch (error) {
-        console.log(error)
+        //console.log(error)
         res.status(500).json(error)
     }
 }

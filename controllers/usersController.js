@@ -1,12 +1,12 @@
-const usersModel = require('../models/usersModel')
-const delay = ms => new Promise(res => setTimeout(res, ms));
+const userModel = require('../models/userModel')
+//const delay = ms => new Promise(res => setTimeout(res, ms));
 const bcrypt = require('bcrypt')
 
 //login callback
 const loginController = async (req, res) => {
     try {
         const {email, password} = req.body 
-        const user = await usersModel.findOne({email}).then(function (user) {
+        await userModel.findOne({email}).then(function (user) {
             //console.log(user)
             if(!user){
                 return res.status(404).send({user})
@@ -30,7 +30,7 @@ const loginController = async (req, res) => {
 //regsiter callback
 const registerController = async (req, res) => {
     try {
-        const newUser = new usersModel(req.body);
+        const newUser = new userModel(req.body);
         
         await newUser.save();
         res.status(201).json({
@@ -46,17 +46,17 @@ const deleteUserController = async (req, res) => {
     try {
         const {email, password} = req.body 
         //const user = await userModel.findOne({email, password})
-        await usersModel.findOne({email}).then(function (user) {
+        await userModel.findOne({email}).then(function (user) {
             bcrypt.compare(password, user.password).then(async function (result, err) {
                     console.log(result)
                     if (result){
-                        await usersModel.findOneAndDelete({_id:req.body.userId})
+                        await userModel.findOneAndDelete({_id:req.body.userId})
                         res.status(200).send({
                             success: true
                         })
                     }
                     else{
-                        console.log("inside compare")
+                        //console.log("inside compare")
                         return res.status(404).send(err+":")
                     }
                 })

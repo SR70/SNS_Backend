@@ -28,16 +28,14 @@ const userSchema = new mongoose.Schema(
 // encrypting user here
 userSchema.pre('save', async function(next) {
     try{
-        console.log("hi from pass")
         const salt = await bcrypt.genSalt(10)
         const hashPass = await bcrypt.hash(this.password, salt)
         this.password = hashPass
-        console.log(hashPass)
         next() 
     }catch(error){
         next(error)
     }
 })
 
-const usersModel = mongoose.model('users', userSchema)
-module.exports = usersModel
+const userModel = mongoose.model('users', userSchema)
+module.exports = userModel

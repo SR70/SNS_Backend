@@ -27,7 +27,7 @@ app.use(cors())
 })*/
 
 
-app.use('/api/v1/users', require('./routes/usersRoute'));
+app.use('/api/v1/users', require('./routes/userRoute'));
 //notes routes
 app.use('/api/v1/notes', require('./routes/notesRoute'))
 

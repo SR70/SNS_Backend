@@ -26,7 +26,8 @@ app.use(cors())
    //res.send('<h1>Hello from server</h1>')
 })*/
 
-app.use('/api/v1/users', require('./routes/usersRoute'));
+//---
+/*app.use('/api/v1/users', require('./routes/usersRoute'));
 //notes routes
 app.use('/api/v1/notes', require('./routes/notesRoute'))
 
@@ -36,7 +37,13 @@ app.use(express.static(path.join(__dirname, './client/build')))
 
 app.get('*', function(req, res){
     res.sendFile(path.join(__dirname, './client/build/index.html'))
-})
+})*/
+
+// users route
+app.use('/api/v1/users', require('./routes/userRoute'));
+//notes routes
+app.use('/api/v1/notes', require('./routes/notesRoute'))
+
 
 //port
 const PORT = 8080 || process.env.PORT 
